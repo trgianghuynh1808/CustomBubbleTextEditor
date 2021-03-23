@@ -1,17 +1,9 @@
 <template>
-  <div class="app">
-    <Editor />
-  </div>
+  <div>Hello</div>
 </template>
 
 <script>
-import Editor from "~/components/Editor";
-
 export default {
-  components: {
-    Editor
-  }
+  components: {}
 };
 </script>
-
-<style></style>
