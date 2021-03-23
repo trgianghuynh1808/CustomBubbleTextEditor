@@ -1,17 +1,14 @@
 <template>
-  <Editor :options="options" :prefill="defaultContent" />
+  <Editor :options="options" :prefill="defaultContent" v-model="content" />
 </template>
 
 <script>
 import Editor from "~/components/Editor";
 
-export default {
-  components: {
-    Editor
-  },
-  data() {
-    return {
-      defaultContent: `<h1>Vuejs <b>Medium Editor</b></h1>
+const CUR_DATA = `<h1>Vuejs <b>Medium Editor</b></h1>
+          <div class="editor-image is-full"><img src="https://source.unsplash.com/yxNURc8he3o/2000x600"></div>`;
+
+const DEFAULT_DATA = `<h1>Vuejs <b>Medium Editor</b></h1>
           <div class="editor-image is-full"><img src="https://source.unsplash.com/yxNURc8he3o/2000x600"></div>
           <div class="editor-image-description">righteous indignation and dislike</div>
           <p>But I must explain to you how all this mistaken idea of denouncing <b>pleasure and praising pain was born and I will give you</b> a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes</p><p class="editor-embed">
@@ -39,7 +36,17 @@ export default {
           </div>
           <div class="editor-image-description">I will give you a complete account of the system</div>
           <p></p>
-          <p>On the other hand, we denounce with righteous indignation and dislike men who are so beguiled and demoralized by the charms of pleasure of the moment, so blinded by desire, that they cannot foresee the pain and trouble that are bound to ensue; and equal blame belongs to those who fail in their duty through weakness of wills</p>`,
+          <p>On the other hand, we denounce with righteous indignation and dislike men who are so beguiled and demoralized by the charms of pleasure of the moment, so blinded by desire, that they cannot foresee the pain and trouble that are bound to ensue; and equal blame belongs to those who fail in their duty through weakness of wills</p>
+`;
+
+export default {
+  components: {
+    Editor
+  },
+  data() {
+    return {
+      content: ``,
+      defaultContent: CUR_DATA,
       options: {
         forcePlainText: false,
         placeholder: {
@@ -85,6 +92,11 @@ export default {
         }
       }
     };
+  },
+  watch: {
+    content(newVal) {
+      console.log({ content: newVal });
+    }
   }
 };
 </script>

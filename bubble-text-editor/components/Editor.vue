@@ -1,11 +1,13 @@
 <template>
-  <div
-    class="editor medium-editor-container"
-    v-html="prefill"
-    ref="editor"
-    v-class="editorClass"
-  >
-    This is editor
+  <div>
+    <div
+      class="editor medium-editor-container"
+      v-html="prefill"
+      ref="editor"
+      v-class="editorClass"
+    >
+      This is editor
+    </div>
   </div>
 </template>
 
@@ -20,6 +22,7 @@ export default {
     };
   },
   props: ["prefill", "options"],
+  components: {},
   mounted() {
     this.createElement();
   },
@@ -40,9 +43,31 @@ export default {
         } else {
           this.hasContent = false;
         }
-        this.$refs.editor.focus();
+        // this.$refs.editor.focus();
       }
+      this.editor.subscribe("editableInput", this.triggerChange);
+    },
+    triggerChange() {
+      // this.addClassToPre();
+      const content = this.editor.getContent();
+      setTimeout(() => {
+        if (/<[a-z][\s\S]*>/i.test(content)) {
+          this.hasContent = true;
+        } else {
+          this.hasContent = false;
+        }
+      }, 0);
+      this.$emit("input", content);
+      if (this.onChange) {
+        this.onChange(content);
+      }
+    },
+    destroyElm() {
+      this.editor.destroy();
     }
+  },
+  destroyed() {
+    this.destroyElm();
   }
 };
 </script>
@@ -50,4 +75,8 @@ export default {
 <style>
 @import "~/assets/css/medium-editor.css";
 @import "~/assets/css/default.css";
+
+.editor {
+  outline: 0px solid transparent !important;
+}
 </style>
