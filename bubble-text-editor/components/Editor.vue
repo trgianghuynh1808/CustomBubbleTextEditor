@@ -1,5 +1,12 @@
 <template>
-  <div class="editor" v-html="prefill" ref="editor">This is editor</div>
+  <div
+    class="editor medium-editor-container"
+    v-html="prefill"
+    ref="editor"
+    v-class="editorClass"
+  >
+    This is editor
+  </div>
 </template>
 
 <script>
@@ -12,13 +19,20 @@ export default {
       hasContent: false
     };
   },
-  props: ["prefill"],
+  props: ["prefill", "options"],
   mounted() {
     this.createElement();
   },
+  computed: {
+    editorClass() {
+      return {
+        "has-content": this.hasContent
+      };
+    }
+  },
   methods: {
     createElement() {
-      this.editor = new MediumEditor(this.$refs.editor);
+      this.editor = new MediumEditor(this.$refs.editor, this.options);
       //check prefill exists
       if (this.prefill) {
         if (/<[a-z][\s\S]*>/i.test(this.prefill)) {
