@@ -31,6 +31,3 @@ export default {
   }
 };
 </script>
-<style>
-@import "~/assets/css/vuetify.min.css";
-</style>
