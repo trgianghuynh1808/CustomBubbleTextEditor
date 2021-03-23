@@ -1,8 +1,6 @@
 <template>
   <v-main>
-    <v-container>
-      <nuxt />
-    </v-container>
+    <nuxt />
   </v-main>
 </template>
 
@@ -33,3 +31,6 @@ export default {
   }
 };
 </script>
+<style>
+@import "~/assets/css/vuetify.min.css";
+</style>

@@ -1,13 +1,22 @@
 <template>
-  <div>
+  <div class="medium-editor-container">
+    <insert-embed
+      v-if="editor"
+      :uploadUrl="options.uploadUrl"
+      :uploadUrlHeader="options.uploadUrlHeader"
+      file_input_name="image"
+      :imgur_bool="options.imgur"
+      :onChange="triggerChange"
+      :editorRef="$refs.editor"
+      :editor="editor"
+      v-on:uploaded="uploadedCallback"
+    ></insert-embed>
     <div
-      class="editor medium-editor-container"
+      class="editor "
       v-html="prefill"
       ref="editor"
       v-class="editorClass"
-    >
-      This is editor
-    </div>
+    ></div>
   </div>
 </template>
 
@@ -43,7 +52,7 @@ export default {
         } else {
           this.hasContent = false;
         }
-        // this.$refs.editor.focus();
+        this.$refs.editor.focus();
       }
       this.editor.subscribe("editableInput", this.triggerChange);
     },
@@ -64,6 +73,9 @@ export default {
     },
     destroyElm() {
       this.editor.destroy();
+    },
+    uploadedCallback(url) {
+      this.$emit("uploaded", url);
     }
   },
   destroyed() {
@@ -78,5 +90,6 @@ export default {
 
 .editor {
   outline: 0px solid transparent !important;
+  position: relative;
 }
 </style>
