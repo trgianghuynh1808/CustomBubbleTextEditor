@@ -1,11 +1,11 @@
 <template>
   <div class="image-handler-container">
     <div
-      class="insert-image-container "
+      class="insert-image-container insert-embed-btn"
       v-show="insert.isShow"
       v-bind:style="insert.position"
     >
-      <v-btn class="mx-2  " small fab color="secondary" dark @click="toggle">
+      <v-btn class="mx-2 " small fab color="secondary" dark @click="toggle">
         <v-icon dark>
           mdi-plus
         </v-icon>
@@ -20,25 +20,23 @@
           v-on:imageClick="imageClickHandler"
           title="Insert Image"
         ></insert-image>
-        <!-- <insert-gist :editor="editor"
-                    v-on:onChange="onChange" :insert="insert" title="Insert gist"></insert-gist> -->
       </div>
     </div>
-    <!-- <image-position
-            :handler="handler"
-            v-on:onPositionChange="onChange"
-            ></image-position> -->
+    <image-position
+      :handler="handler"
+      v-on:onPositionChange="onChange"
+    ></image-position>
   </div>
 </template>
 
 <script>
 import InsertImage from "./InsertImage";
+import ImagePosition from "./ImagePosition";
 
 export default {
   components: {
-    InsertImage
-    // InsertGist,
-    // ImagePosition
+    InsertImage,
+    ImagePosition
   },
   data() {
     return {
@@ -160,3 +158,9 @@ export default {
   }
 };
 </script>
+
+<style>
+.insert-embed-btn {
+  z-index: 999;
+}
+</style>
