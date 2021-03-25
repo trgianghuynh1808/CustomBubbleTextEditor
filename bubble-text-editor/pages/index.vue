@@ -35,6 +35,9 @@ export default {
             "h2",
             "h3",
             "h4",
+            "justifyCenter",
+            "justifyLeft",
+            "justifyRight",
             // {
             //   name: "pre",
             //   action: "append-pre",
